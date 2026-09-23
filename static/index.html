@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>икоси — объявления рядом с тобой</title>
+
+<style>
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  background: #080b10;
+  color: #f4f6f8;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+body {
+  padding-bottom: 82px;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+.app {
+  width: 100%;
+  max-width: 700px;
+  margin: auto;
+}
+
+/* HEADER */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  background: rgba(8,11,16,.94);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid #202630;
+  padding: 16px 16px 13px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 800;
+  letter-spacing: -1px;
+}
+
+.logo span {
+  color: #6ea8ff;
+}
+
+.header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bell {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  background: #11161e;
+  color: white;
+  border: 1px solid #242b35;
+  font-size: 20px;
+}
+
+/* CONTENT */
+
+.page {
+  display: none;
+  padding: 18px 15px 20px;
+}
+
+.page.active {
+  display: block;
+}
+
+.hero {
+  margin-bottom: 18px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: 29px;
+  line-height: 1.1;
+}
+
+.hero p {
+  margin: 8px 0 0;
+  color: #929aa6;
+  font-size: 15px;
+}
+
+/* SEARCH */
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #11161e;
+  border: 1px solid #29313d;
+  border-radius: 16px;
+  padding: 13px 15px;
+  margin: 16px 0 20px;
+}
+
+.search-icon {
+  font-size: 20px;
+}
+
+.search input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: white;
+  font-size: 16px;
+}
+
+.search input::placeholder {
+  color: #707985;
+}
+
+/* CATEGORIES */
+
+.categories {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin-bottom: 23px;
+}
+
+.categories::-webkit-scrollbar {
+  display: none;
+}
+
+.category {
+  flex: 0 0 auto;
+  padding: 10px 14px;
+  border-radius: 13px;
+  background: #11161e;
+  color: #aeb6c1;
+  border: 1px solid #242c37;
+}
+
+.category.active {
+  background: #2b6ee8;
+  border-color: #2b6ee8;
+  color: white;
+}
+
+/* SECTION */
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.section-title h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.section-title button {
+  background: transparent;
+  color: #6ea8ff;
+}
+
+/* CARDS */
+
+.cards {
+  display: grid;
+  gap: 11px;
+}
+
+.card {
+  background: #10151c;
+  border: 1px solid #222a34;
+  border-radius: 17px;
+  padding: 14px;
+  display: flex;
+  gap: 13px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-image {
+  width: 88px;
+  height: 88px;
+  border-radius: 14px;
+  flex: 0 0 88px;
+  background: linear-gradient(135deg,#202b3c,#11151c);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+}
+
+.card-content {
+  min-width: 0;
+  padding-right: 24px;
+}
+
+.card h3 {
+  margin: 0 0 7px;
+  font-size: 16px;
+}
+
+.price {
+  font-size: 17px;
+  font-weight: 750;
+  margin-bottom: 5px;
+}
+
+.location {
+  color: #7f8996;
+  font-size: 13px;
+}
+
+.favorite {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  background: #171d25;
+  color: #8d97a5;
+  font-size: 18px;
+}
+
+.favorite.active {
+  color: #ff657a;
+}
+
+/* ADD */
+
+.add-box {
+  background: linear-gradient(145deg,#111a29,#10141b);
+  border: 1px solid #26374e;
+  border-radius: 20px;
+  padding: 22px;
+  margin-top: 10px;
+}
+
+.add-box h2 {
+  margin: 0 0 6px;
+}
+
+.add-box p {
+  color: #8f99a7;
+  font-size: 14px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 14px;
+  margin-top: 10px;
+  border-radius: 13px;
+  background: #0a0e14;
+  color: white;
+  border: 1px solid #28313c;
+  outline: none;
+}
+
+textarea.form-input {
+  min-height: 100px;
+  resize: none;
+}
+
+.primary {
+  width: 100%;
+  padding: 14px;
+  margin-top: 12px;
+  border-radius: 13px;
+  background: #2e74ed;
+  color: white;
+  font-weight: 700;
+}
+
+/* PROFILE */
+
+.profile-head {
+  text-align: center;
+  padding: 15px 0 25px;
+}
+
+.avatar {
+  width: 92px;
+  height: 92px;
+  margin: auto;
+  border-radius: 50%;
+  background: linear-gradient(135deg,#397bf0,#7a4cff);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 39px;
+  font-weight: 800;
+}
+
+.profile-head h2 {
+  margin: 12px 0 3px;
+}
+
+.profile-head p {
+  margin: 0;
+  color: #808a97;
+}
+
+.profile-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 16px;
+  margin-bottom: 8px;
+  border-radius: 15px;
+  background: #11161e;
+  color: white;
+  border: 1px solid #222a34;
+  text-align: left;
+}
+
+.profile-icon {
+  width: 35px;
+  text-align: center;
+  font-size: 20px;
+}
+
+/* EMPTY */
+
+.empty {
+  text-align: center;
+  padding: 55px 20px;
+  color: #7e8793;
+}
+
+.empty-icon {
+  font-size: 45px;
+  margin-bottom: 12px;
+}
+
+/* BOTTOM NAV */
+
+.bottom-nav {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+  height: 72px;
+  background: rgba(10,13,18,.96);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid #242b34;
+  display: flex;
+  justify-content: space-around;
+  padding: 7px 5px calc(7px + env(safe-area-inset-bottom));
+}
+
+.nav-btn {
+  flex: 1;
+  max-width: 100px;
+  background: transparent;
+  color: #68727f;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  border-radius: 13px;
+}
+
+.nav-btn .icon {
+  font-size: 21px;
+  line-height: 23px;
+}
+
+.nav-btn .text {
+  font-size: 10px;
+}
+
+.nav-btn.active {
+  color: #72a9ff;
+}
+
+/* TOAST */
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 88px;
+  transform: translate(-50%,20px);
+  background: #202832;
+  border: 1px solid #34404e;
+  color: white;
+  padding: 12px 18px;
+  border-radius: 13px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .25s;
+  z-index: 100;
+  white-space: nowrap;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%,0);
+}
+
+/* DESKTOP */
+
+@media (min-width: 700px) {
+  .bottom-nav {
+    max-width: 700px;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    border-left: 1px solid #242b34;
+    border-right: 1px solid #242b34;
+    border-radius: 18px 18px 0 0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+  <div class="header-row">
+    <div class="logo">икоси <span>✓</span></div>
+    <button class="bell" onclick="showToast('Новых уведомлений нет')">🔔</button>
+  </div>
+</header>
+
+<!-- ГЛАВНАЯ -->
+
+<section class="page active" id="home">
+
+  <div class="hero">
+    <h1>Объявления рядом с тобой</h1>
+    <p>Найди то, что нужно</p>
+  </div>
+
+  <div class="search">
+    <div class="search-icon">🔎</div>
+    <input id="searchInput"
+           type="text"
+           placeholder="Поиск объявлений..."
+           oninput="searchAds()">
+  </div>
+
+  <div class="categories">
+    <button class="category active" onclick="filterCategory('Все',this)">Все</button>
+    <button class="category" onclick="filterCategory('Электроника',this)">📱 Электроника</button>
+    <button class="category" onclick="filterCategory('Одежда',this)">👕 Одежда</button>
+    <button class="category" onclick="filterCategory('Авто',this)">🚗 Авто</button>
+    <button class="category" onclick="filterCategory('Дом',this)">🏠 Дом</button>
+  </div>
+
+  <div class="section-title">
+    <h2>Популярные объявления</h2>
+    <button onclick="showToast('Показаны все объявления')">Все →</button>
+  </div>
+
+  <div class="cards" id="cards"></div>
+
+</section>
+
+<!-- ПОИСК -->
+
+<section class="page" id="search">
+
+  <div class="hero">
+    <h1>Поиск</h1>
+    <p>Найди нужное объявление</p>
+  </div>
+
+  <div class="search">
+    <div class="search-icon">🔎</div>
+    <input type="text"
+           placeholder="Что ищем?"
+           oninput="globalSearch(this.value)">
+  </div>
+
+  <div id="searchResults"></div>
+
+</section>
+
+<!-- ДОБАВИТЬ -->
+
+<section class="page" id="add">
+
+  <div class="hero">
+    <h1>Новое объявление</h1>
+    <p>Продай или отдай то, что больше не нужно</p>
+  </div>
+
+  <div class="add-box">
+
+    <h2>Создать объявление</h2>
+    <p>Заполни информацию о товаре</p>
+
+    <input class="form-input"
+           id="adTitle"
+           placeholder="Название товара">
+
+    <input class="form-input"
+           id="adPrice"
+           placeholder="Цена">
+
+    <input class="form-input"
+           id="adLocation"
+           placeholder="Город">
+
+    <textarea class="form-input"
+              id="adDescription"
+              placeholder="Описание"></textarea>
+
+    <button class="primary" onclick="createAd()">
+      Опубликовать объявление
+    </button>
+
+  </div>
+
+</section>
+
+<!-- ИЗБРАННОЕ -->
+
+<section class="page" id="favorites">
+
+  <div class="hero">
+    <h1>Избранное</h1>
+    <p>Объявления, которые тебе понравились</p>
+  </div>
+
+  <div class="cards" id="favoriteCards"></div>
+
+</section>
+
+<!-- ПРОФИЛЬ -->
+
+<section class="page" id="profile">
+
+  <div class="profile-head">
+
+    <div class="avatar">И</div>
+
+    <h2 id="profileName">Икоси</h2>
+
+    <p>Мой профиль</p>
+
+  </div>
+
+  <button class="profile-item" onclick="editName()">
+    <span class="profile-icon">👤</span>
+    <span>Изменить имя</span>
+  </button>
+
+  <button class="profile-item" onclick="showToast('Раздел моих объявлений')">
+    <span class="profile-icon">📦</span>
+    <span>Мои объявления</span>
+  </button>
+
+  <button class="profile-item" onclick="showToast('Настройки открыты')">
+    <span class="profile-icon">⚙️</span>
+    <span>Настройки</span>
+  </button>
+
+  <button class="profile-item" onclick="showToast('Помощь скоро будет доступна')">
+    <span class="profile-icon">❓</span>
+    <span>Помощь</span>
+  </button>
+
+</section>
+
+</div>
+
+<!-- НИЖНЕЕ МЕНЮ -->
+
+<nav class="bottom-nav">
+
+  <button class="nav-btn active" onclick="openPage('home',this)">
+    <span class="icon">⌂</span>
+    <span class="text">Главная</span>
+  </button>
+
+  <button class="nav-btn" onclick="openPage('search',this)">
+    <span class="icon">⌕</span>
+    <span class="text">Поиск</span>
+  </button>
+
+  <button class="nav-btn" onclick="openPage('add',this)">
+    <span class="icon">＋</span>
+    <span class="text">Добавить</span>
+  </button>
+
+  <button class="nav-btn" onclick="openPage('favorites',this)">
+    <span class="icon">♡</span>
+    <span class="text">Избранное</span>
+  </button>
+
+  <button class="nav-btn" onclick="openPage('profile',this)">
+    <span class="icon">♙</span>
+    <span class="text">Профиль</span>
+  </button>
+
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+
+let ads = [
+  {
+    id: 1,
+    title: "iPhone 15 Pro",
+    price: "850 €",
+    location: "Стокгольм",
+    category: "Электроника",
+    icon: "📱",
+    favorite: false
+  },
+  {
+    id: 2,
+    title: "Игровая приставка",
+    price: "350 €",
+    location: "Стокгольм",
+    category: "Электроника",
+    icon: "🎮",
+    favorite: false
+  },
+  {
+    id: 3,
+    title: "Кроссовки Nike",
+    price: "90 €",
+    location: "Солна",
+    category: "Одежда",
+    icon: "👟",
+    favorite: false
+  },
+  {
+    id: 4,
+    title: "BMW 3 Series",
+    price: "12 500 €",
+    location: "Стокгольм",
+    category: "Авто",
+    icon: "🚗",
+    favorite: false
+  },
+  {
+    id: 5,
+    title: "Игровое кресло",
+    price: "120 €",
+    location: "Сундбюберг",
+    category: "Дом",
+    icon: "🪑",
+    favorite: false
+  }
+];
+
+function renderAds(list = ads) {
+
+  const container = document.getElementById("cards");
+
+  if (!list.length) {
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">🔎</div>
+        Ничего не найдено
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = list.map(ad => `
+
+    <div class="card">
+
+      <div class="card-image">
+        ${ad.icon}
+      </div>
+
+      <div class="card-content">
+
+        <h3>${ad.title}</h3>
+
+        <div class="price">
+          ${ad.price}
+        </div>
+
+        <div class="location">
+          📍 ${ad.location}
+        </div>
+
+      </div>
+
+      <button
+        class="favorite ${ad.favorite ? 'active' : ''}"
+        onclick="toggleFavorite(${ad.id})">
+
+        ${ad.favorite ? '♥' : '♡'}
+
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+function openPage(page, button) {
+
+  document.querySelectorAll(".page")
+    .forEach(p => p.classList.remove("active"));
+
+  document.getElementById(page)
+    .classList.add("active");
+
+  document.querySelectorAll(".nav-btn")
+    .forEach(b => b.classList.remove("active"));
+
+  button.classList.add("active");
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+
+  if (page === "favorites") {
+    renderFavorites();
+  }
+
+}
+
+function toggleFavorite(id) {
+
+  const ad = ads.find(a => a.id === id);
+
+  if (!ad) return;
+
+  ad.favorite = !ad.favorite;
+
+  renderAds();
+
+  if (ad.favorite) {
+    showToast("Добавлено в избранное ♥");
+  } else {
+    showToast("Удалено из избранного");
+  }
+
+}
+
+function renderFavorites() {
+
+  const favorites = ads.filter(a => a.favorite);
+
+  const container = document.getElementById("favoriteCards");
+
+  if (!favorites.length) {
+
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">♡</div>
+        <div>В избранном пока ничего нет</div>
+        <p>Добавляй понравившиеся объявления</p>
+      </div>
+    `;
+
+    return;
+  }
+
+  container.innerHTML = favorites.map(ad => `
+
+    <div class="card">
+
+      <div class="card-image">
+        ${ad.icon}
+      </div>
+
+      <div class="card-content">
+
+        <h3>${ad.title}</h3>
+
+        <div class="price">${ad.price}</div>
+
+        <div class="location">
+          📍 ${ad.location}
+        </div>
+
+      </div>
+
+      <button
+        class="favorite active"
+        onclick="toggleFavorite(${ad.id}); renderFavorites()">
+        ♥
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+function searchAds() {
+
+  const value = document
+    .getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+  if (!value) {
+    renderAds();
+    return;
+  }
+
+  const result = ads.filter(ad =>
+    ad.title.toLowerCase().includes(value) ||
+    ad.category.toLowerCase().includes(value) ||
+    ad.location.toLowerCase().includes(value)
+  );
+
+  renderAds(result);
+
+}
+
+function globalSearch(value) {
+
+  const text = value.toLowerCase().trim();
+
+  const result = ads.filter(ad =>
+    ad.title.toLowerCase().includes(text) ||
+    ad.category.toLowerCase().includes(text) ||
+    ad.location.toLowerCase().includes(text)
+  );
+
+  const container = document.getElementById("searchResults");
+
+  if (!text) {
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">🔎</div>
+        Начни вводить название товара
+      </div>
+    `;
+    return;
+  }
+
+  if (!result.length) {
+    container.innerHTML = `
+      <div class="empty">
+        <div class="empty-icon">😕</div>
+        Ничего не найдено
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = result.map(ad => `
+
+    <div class="card" style="margin-bottom:10px">
+
+      <div class="card-image">
+        ${ad.icon}
+      </div>
+
+      <div class="card-content">
+        <h3>${ad.title}</h3>
+        <div class="price">${ad.price}</div>
+        <div class="location">📍 ${ad.location}</div>
+      </div>
+
+      <button
+        class="favorite ${ad.favorite ? 'active' : ''}"
+        onclick="toggleFavorite(${ad.id})">
+        ${ad.favorite ? '♥' : '♡'}
+      </button>
+
+    </div>
+
+  `).join("");
+
+}
+
+function filterCategory(category, button) {
+
+  document.querySelectorAll(".category")
+    .forEach(b => b.classList.remove("active"));
+
+  button.classList.add("active");
+
+  if (category === "Все") {
+    renderAds();
+    return;
+  }
+
+  renderAds(
+    ads.filter(ad => ad.category === category)
+  );
+
+}
+
+function createAd() {
+
+  const title = document.getElementById("adTitle").value.trim();
+  const price = document.getElementById("adPrice").value.trim();
+  const location = document.getElementById("adLocation").value.trim();
+
+  if (!title || !price || !location) {
+    showToast("Заполни название, цену и город");
+    return;
+  }
+
+  ads.unshift({
+
+    id: Date.now(),
+
+    title: title,
+
+    price: price,
+
+    location: location,
+
+    category: "Дом",
+
+    icon: "📦",
+
+    favorite: false
+
+  });
+
+  document.getElementById("adTitle").value = "";
+  document.getElementById("adPrice").value = "";
+  document.getElementById("adLocation").value = "";
+  document.getElementById("adDescription").value = "";
+
+  renderAds();
+
+  showToast("Объявление опубликовано ✓");
+
+  document.querySelector('[onclick*="openPage(\'home\'"]')
+    .click();
+
+}
+
+function editName() {
+
+  const name = prompt("Введите новое имя:");
+
+  if (!name || !name.trim()) return;
+
+  document.getElementById("profileName").textContent =
+    name.trim();
+
+  document.querySelector(".avatar").textContent =
+    name.trim().charAt(0).toUpperCase();
+
+  showToast("Имя изменено ✓");
+
+}
+
+function showToast(message) {
+
+  const toast = document.getElementById("toast");
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(window.toastTimer);
+
+  window.toastTimer = setTimeout(() => {
+
+    toast.classList.remove("show");
+
+  }, 2200);
+
+}
+
+renderAds();
+
+</script>
+
+</body>
+</html>
